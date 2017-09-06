@@ -1,0 +1,117 @@
+$(function(){
+	$('#btnsave').on('click',function(){
+		var isValid=$('#fm').form('validate');
+		if(isValid){
+		$.ajax({
+			type:'post',
+			data:$('#fm').serialize(),
+			url:'/webproject/usercontroller.do?type=add',
+			success:function(data){
+				if(data=="1"){
+					$('#fm').form('clear');
+					$('#dd').dialog('close');
+					$('#tab').datagrid('reload');
+				}
+			}
+		  })
+		}else{
+			$.messager.alert('添加提示','请填写所有属性','info');
+		}
+	})
+	$('#tab').datagrid({
+		url:'/webproject/usercontroller.do?type=list',
+		title:'用户信息',
+		iconCls:'icon-ok',
+		collapsible:true,
+		//idField:'userid',
+		rownumbers:true,
+		queryParams:{type:'list'},
+		toolbar:[
+		          {text:'添加',iconCls:'icon-add',handler:function(){
+		        	  $('#email').textbox({editable:true})
+		        	  $('#loginid').textbox({editable:true})
+		        	  $('#dd').dialog({
+		        		  closed:false
+		        	  })
+		          }},'-',
+		          {text:'删除',iconCls:'icon-remove',handler:function(){
+		        	  var row=$('#tab').datagrid('getSelected');
+		        	  if(row==null){
+		        		  $.messager.alert('删除提示','请选择要删除的内容','info')
+		        	  }
+		        	  if(row!=null){
+		        		  $.messager.confirm('删除提示',"确认删除"+row.loginid+"吗？",function(r){
+		        			  if(r){
+		        				  $.ajax({
+		        					  url:'/webproject/usercontroller.do',
+		        					  type:'post',
+		        					  data:{type:'remove',userid:row.userid},
+		        				  	  success:function(data){
+		        				  		  if(data==1){
+		        				  			$('#tab').datagrid('reload');
+		        				  		  }
+		        				  	  }
+		        				  })
+		        			  }
+		        		  })
+		        	  }
+		          }},'-',
+		          {text:'修改',iconCls:'icon-edit',handler:function(){
+		        	  var row=$('#tab').datagrid('getSelected');
+		        	  if(row==null){
+		        		  $.messager.alert('编辑提示','请选择要编辑的内容','info');
+		        	  }
+		        	  if(row!=null){
+		        		  $('#email').textbox('setValue',row.email);
+		        		  $('#email').textbox({editable:false})
+		        		  $('#loginid').textbox('setValue',row.loginid);
+		        		  $('#loginid').textbox({editable:false})
+		        		  $('#upassword').textbox('setValue',row.upassword);
+		        		  $('#uaddress').textbox('setValue',row.uaddress);
+		        		  $('#utel').textbox('setValue',row.utel);
+		        		  $('#cc').textbox('setValue',row.usex);
+		        		  $('#dd').dialog({    
+			        		    title: '编辑',       
+			        		    closed: false,           
+			        		    iconCls:'icon-edit', 
+			        		    buttons:[{text:'保存修改',iconCls:'icon-save',handler:function(){
+			        		    	var isValid=$('#fm').form('validate');
+			        		    	if(isValid){
+			        		    		$.ajax({
+			        		    			type:'post',
+			        		    			data:$('#fm').serialize(),
+			        		    			url:'/webproject/usercontroller.do?type=update',
+			        		    			success:function(data){
+			        		    				if(data=="1"){
+			        		    					$('#fm').form('clear');
+			        		    					$('#dd').dialog('close');
+			        		    					$('#tab').datagrid('reload');
+			        		    				}
+			        		    			}
+			        		    		})
+			        		    	}else{
+			        		    		$.messager.alert('修改提示','请填写所有属性','info');
+			        		    	}
+			        		    }}]
+			        		});     
+		        	  }
+		        	  
+		          }}
+		         ],
+			
+		columns:[[
+		           {field:'chk',checkbox:true},
+			       {field:'userid',title:'编号'}, 
+			       {field:'email',title:'邮箱'},
+			       {field:'loginid',title:'用户名'},
+			       {field:'upassword',title:'密码'},
+			       {field:'usex',title:'性别'},
+			       {field:'uaddress',title:'地址'},
+			       {field:'utel',title:'电话'},
+			       {field:'ustateid',title:'状态编号'},
+			       {field:'uroleid',title:'角色编号'}
+			    ]]    
+
+	});
+	
+})

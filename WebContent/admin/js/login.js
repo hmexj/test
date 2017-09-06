@@ -1,0 +1,38 @@
+$(function(){
+	$('#login').dialog({
+		width:400,
+		height:200,
+		title:"用户登录",
+		collapsible:true,
+		iconCls:'icon-man',
+		buttons:[{
+			text:'登录',
+			iconCls:'icon-ok',
+			handler:function(){
+				var isValid=$('form').form('validate')
+				if(isValid){
+				$.ajax({
+					type:'post',
+					url:'/webproject/logincontroller.do',
+					data:$('form').serialize(),
+					success:function(data){
+						if(data=="1"){
+							window.location='/webproject/admin/index.html';
+						}else{
+							$.messager.alert('登录失败','请检查账号密码','info');    
+						}
+					}
+				});
+			   }else{
+				   $.messager.alert('验证出错了','表单验证未通过','info');
+			   }
+			}
+		},{
+			text:'取消',
+			iconCls:'icon-cancel',
+			handler:function(){
+				alert('cancel')
+			}
+		}]
+	})
+})

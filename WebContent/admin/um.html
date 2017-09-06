@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/webproject/admin/easyui/themes/default/easyui.css" />
+	    <link rel="stylesheet" type="text/css" href="/webproject/admin/easyui//themes/icon.css" />
+	    <script type="text/javascript" src="/webproject/admin/easyui/jquery.min.js" charset=utf-8></script>
+	    <script type="text/javascript" src="/webproject/admin/easyui/jquery.easyui.min.js"></script>
+	    <script type="text/javascript" src="/webproject/admin/easyui/locale/easyui-lang-zh_CN.js" charset=utf-8></script>
+		<script type="text/javascript" src="/webproject/admin/js/um.js"></script>
+		<style type="text/css">
+			#tb {width:250px;margin:25px auto}
+		</style>
+	</head>
+	<body>
+		用户管理
+		<hr size="0"/>
+		<table id="tab" >   
+		</table>
+		<div id="dd" class="easyui-dialog" title="添加" style="width:300px;height:285px;"   
+        data-options="iconCls:'icon-add',resizable:true,modal:true ,collapsible:true,buttons:'#footer',closed:true">
+        <form action="" method="post" id="fm">
+        <table id="tb">
+        	<tr>
+        		<td>邮箱</td>
+        		<td><input name="email" id="email" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'请输入账号'"></td>
+        	</tr>
+        	<tr>
+        		<td>用户名</td>
+        		<td><input name="loginid" id="loginid" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'请输入账号'"></td>
+        	</tr>
+        	<tr>
+        		<td>密码</td>
+        		<td><input name="upassword" id="upassword" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'请输入账号'"></td>
+        	</tr>
+        	<tr>
+        		<td>地址</td>
+        		<td><input name="uaddress" id="uaddress" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'请输入账号'"></td>
+        	</tr>
+        	<tr>
+        		<td>电话</td>
+        		<td><input name="utel" id="utel" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'请输入账号'"></td>
+        	</tr>
+        	<tr>
+        		<td>性别</td>
+        		<td>
+        			<select id="cc" class="easyui-combobox" name="usex" style="width:50px;" data-options="panelHeight:'auto'">   
+					    <option>男</option>   
+					    <option>女</option>   
+					</select>  
+        			
+        		</td>
+        	</tr>
+        </table> 
+        </form>  
+		</div>
+		<div id=footer>
+			<a id="btnsave" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>  
+			<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
+		</div>
+	</body>
+</html>
